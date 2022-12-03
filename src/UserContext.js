@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { TOKEN_POST, TOKEN_VALIDATE_POST, USER_GET } from './api'
+import { TOKEN_POST, TOKEN_VALIDATE_POST, USER_GET } from './Api'
 import { useNavigate } from 'react-router-dom'
 
 export const UserContext = React.createContext()
@@ -35,7 +35,7 @@ export const UserStorage = ({ children }) => {
       setLoading(true)
       const { url, options } = TOKEN_POST({username, password})
       const tokenResponse = await fetch(url, options)
-      if (!tokenResponse.ok) throw new Error(`Error: ${tokenResponse.statusText}`)
+      if (!tokenResponse.ok) throw new Error(`Error: ${tokenResponse.status}`)
       const {token} = await tokenResponse.json()
       window.localStorage.setItem('token', token)
       await getUser(token)
